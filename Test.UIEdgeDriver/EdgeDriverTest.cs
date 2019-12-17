@@ -28,8 +28,8 @@ namespace Test.UIEdgeDriver
         public void VerifyPageTitle()
         {
             // Replace with your own test logic
-            _driver.Url = "https://www.bing.com";
-            Assert.AreEqual("Bing", _driver.Title);
+            _driver.Url = "http://www.Bing.com/";
+             Assert.AreEqual("Bing", _driver.Title);
         }
 
         [TestCleanup]
