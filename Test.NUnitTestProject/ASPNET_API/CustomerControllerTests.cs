@@ -4,12 +4,12 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ASPNET_API.Controllers;
 using DataAccess;
-using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 
 namespace Test.NUnitTestProject.ASPNET_API
 {
+    [TestFixture]
     public class CustomerControllerTests
     {
         [Test]
@@ -80,12 +80,11 @@ namespace Test.NUnitTestProject.ASPNET_API
 
             // Act
             var actionResult = controller.Get(1);
-
-            //actionResult.
             var contentResult = actionResult as NotFoundResult;// Ok as OkNegotiatedContentResult<List<Customer>>;
 
             // Assert
             Assert.NotNull(contentResult);
+            Assert.IsInstanceOf<NotFoundResult>(contentResult);
             Assert.True(404 == contentResult.StatusCode);
         }
     }
