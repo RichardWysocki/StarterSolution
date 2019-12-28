@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +38,7 @@ namespace ASPNET_API
                     .WithScopedLifetime()
             );
 
+            services.AddAutoMapper(typeof(Startup));
             //services.AddTransient<ICustomerRepository, CustomerRepository>();
 
             services.AddDbContext<BootStrapperContext>(options =>
@@ -57,7 +59,7 @@ namespace ASPNET_API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

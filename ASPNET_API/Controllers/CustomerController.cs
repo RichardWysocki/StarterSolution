@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ASPNET_API.Models;
+using AutoMapper;
 using DataAccess;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_API.Controllers
@@ -12,11 +10,12 @@ namespace ASPNET_API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
 
-
-        public CustomerController(ICustomerRepository customerRepository)
+        public CustomerController(IMapper mapper, ICustomerRepository customerRepository)
         {
+            _mapper = mapper;
             _customerRepository = customerRepository;
         }
         // GET: api/Cusotmer
@@ -41,6 +40,7 @@ namespace ASPNET_API.Controllers
                 var getData = _customerRepository.GetCustomerByCustomerID(id);
                 //var response = new KidDTO() { KidId = getData.KidId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
                 //_logEngine.LogInfo($"KidApiController: /api/KidApi/Get/{id}", "Returning Method");
+                var response = _mapper.Map<CustomerDTO>(getData);
                 return Ok(getData);
             }
             catch (Exception e) when (e.Message == "Error getting Customer record.")

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ASPNET_API.Controllers;
+using AutoMapper;
 using DataAccess;
 using Moq;
 using NUnit.Framework;
@@ -16,6 +17,7 @@ namespace Test.NUnitTestProject.ASPNET_API
         public void GetReturnsAllCustomers()
         {
             //Arrange
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<ICustomerRepository>();
             mockRepository.Setup(x => x.GetAllCustomers())
                 .Returns(new List<Customer>()
@@ -24,7 +26,7 @@ namespace Test.NUnitTestProject.ASPNET_API
                     new Customer() {CustomerId = 2, FirstName = "Richard", LastName = "Wysocki", State = "PA"}
                     }
                 );
-            var controller = new CustomerController(mockRepository.Object);
+            var controller = new CustomerController(mockMapper.Object, mockRepository.Object);
 
             // Act
             var actionResult = controller.Get();
@@ -47,11 +49,12 @@ namespace Test.NUnitTestProject.ASPNET_API
         public void GetIdReturnsCustomerWithSameId()
         {
             //Arrange
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<ICustomerRepository>();
             mockRepository.Setup(x => x.GetCustomerByCustomerID(1))
                 .Returns(new Customer() {CustomerId = 1, FirstName = "Richard", LastName = "Wysocki", State = "PA"}
                 );
-            var controller = new CustomerController(mockRepository.Object);
+            var controller = new CustomerController(mockMapper.Object, mockRepository.Object);
 
             // Act
             var actionResult = controller.Get(1);
@@ -73,10 +76,11 @@ namespace Test.NUnitTestProject.ASPNET_API
         public void GetIdThrowsExceptionWithInvalidId()
         {
             //Arrange
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<ICustomerRepository>();
             mockRepository.Setup(x => x.GetCustomerByCustomerID(1))
                 .Throws(new Exception("Error getting Customer record."));
-            var controller = new CustomerController(mockRepository.Object);
+            var controller = new CustomerController(mockMapper.Object, mockRepository.Object);
 
             // Act
             var actionResult = controller.Get(1);

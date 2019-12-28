@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,8 +25,7 @@ namespace ASPNET_WebApplication.Controllers
         {
 
             //Call ASPNET_API
-            var client = _httpClientFactory.CreateClient("MyCustomAPI");
-
+            var client = _httpClientFactory.CreateClient("API_Services");
             var customerData = await client.GetAsync("Customer");
             var data = JsonConvert.DeserializeObject<List<CustomerViewModel>>(await customerData.Content.ReadAsStringAsync());
             // ConvertData into View
@@ -38,7 +35,7 @@ namespace ASPNET_WebApplication.Controllers
         // GET: Customer/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var client = _httpClientFactory.CreateClient("MyCustomAPI");
+            var client = _httpClientFactory.CreateClient("API_Services");
             var customerData = await client.GetAsync($"Customer/{id}");
             var data = JsonConvert.DeserializeObject<CustomerViewModel>(await customerData.Content.ReadAsStringAsync());
             return View(data);
@@ -59,7 +56,7 @@ namespace ASPNET_WebApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var client = _httpClientFactory.CreateClient("MyCustomAPI");
+                    var client = _httpClientFactory.CreateClient("API_Services");
                     string postBody = JsonConvert.SerializeObject(customerViewModel);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage wcfResponse = await client.PostAsync("Customer", new StringContent(postBody, Encoding.UTF8, "application/json"));
@@ -82,7 +79,7 @@ namespace ASPNET_WebApplication.Controllers
         // GET: Customer/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var client = _httpClientFactory.CreateClient("MyCustomAPI");
+            var client = _httpClientFactory.CreateClient("API_Services");
             var customerData = await client.GetAsync($"Customer/{id}");
             var data = JsonConvert.DeserializeObject<CustomerViewModel>(await customerData.Content.ReadAsStringAsync());
             return View(data);
@@ -96,7 +93,7 @@ namespace ASPNET_WebApplication.Controllers
             try
             {
                 // TODO: Add update logic here
-                var client = _httpClientFactory.CreateClient("MyCustomAPI");
+                var client = _httpClientFactory.CreateClient("API_Services");
                 var jsonString = JsonConvert.SerializeObject(customerViewModel);
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 var response = await client.PutAsync($"Customer/{customerViewModel.CustomerId}", httpContent);
@@ -116,7 +113,7 @@ namespace ASPNET_WebApplication.Controllers
         // GET: Customer/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var client = _httpClientFactory.CreateClient("MyCustomAPI");
+            var client = _httpClientFactory.CreateClient("API_Services");
             var customerData = await client.DeleteAsync($"Customer/{id}");
             //if (customerData.StatusCode = HttpStatusCode.NoContent);    
             return RedirectToAction("Index");
