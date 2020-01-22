@@ -1,4 +1,4 @@
-﻿namespace Services.ASPNETCore.Docker.Model
+﻿namespace ASPNET_API.Models
 {
     public class WebSettings
     {

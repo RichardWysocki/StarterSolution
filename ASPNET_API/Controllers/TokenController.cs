@@ -2,14 +2,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ASPNET_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Services.ASPNETCore.Docker.Model;
 
-namespace Services.ASPNETCore.Docker.Controllers
+namespace ASPNET_API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Token/[action]")]

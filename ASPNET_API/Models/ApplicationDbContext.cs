@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Services.ASPNETCore.Docker.Model;
 
-namespace Services.ASPNETCore.Docker.Model
+namespace ASPNET_API.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

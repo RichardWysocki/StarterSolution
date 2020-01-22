@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
     public class Customer
     {

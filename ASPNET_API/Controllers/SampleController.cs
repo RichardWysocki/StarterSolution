@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Services.ASPNETCore.Docker.Controllers
+namespace ASPNET_API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Sample")]
