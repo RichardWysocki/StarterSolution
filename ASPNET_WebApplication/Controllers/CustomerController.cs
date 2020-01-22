@@ -113,7 +113,7 @@ namespace ASPNET_WebApplication.Controllers
         // GET: Customer/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var client = _httpClientFactory.CreateClient("API_Services");
+             var client = _httpClientFactory.CreateClient("API_Services");
             var customerData = await client.DeleteAsync($"Customer/{id}");
             //if (customerData.StatusCode = HttpStatusCode.NoContent);    
             return RedirectToAction("Index");

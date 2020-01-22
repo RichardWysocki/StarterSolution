@@ -6,6 +6,6 @@ namespace DataAccess
     {
         void SaveChanges();
 
-        DbSet<Customer> Customer { get; set; }
+        DbSet<Customer> Customers { get; set; }
     }
 }

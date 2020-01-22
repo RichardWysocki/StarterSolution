@@ -16,19 +16,19 @@ namespace DataAccess
 
         public List<Customer> GetAllCustomers()
         {
-            return _bootStrapperContext.Customer.ToList();
+            return _bootStrapperContext.Customers.ToList();
         }
 
         public Customer CreateCustomer(Customer customer)
         {
-            _bootStrapperContext.Customer.Add(customer);
+            _bootStrapperContext.Customers.Add(customer);
             _bootStrapperContext.SaveChanges();
             return customer;
         }
 
         public bool UpdateCustomer(Customer customer)
         {
-            var result = _bootStrapperContext.Customer.SingleOrDefault(b => b.CustomerId == customer.CustomerId);
+            var result = _bootStrapperContext.Customers.SingleOrDefault(b => b.CustomerId == customer.CustomerId);
             if (result != null)
             {
                 result.FirstName = customer.FirstName;
@@ -42,7 +42,7 @@ namespace DataAccess
         public void DeleteCustomer(int id)
         {
             var customer = GetCustomerByCustomerID(id);
-            _bootStrapperContext.Customer.Remove(customer);
+            _bootStrapperContext.Customers.Remove(customer);
             _bootStrapperContext.SaveChanges();
             
         }
@@ -51,7 +51,7 @@ namespace DataAccess
         {
             if (id == 0)
                 throw new ArgumentException("Invalid id Parameter");
-            var customer = _bootStrapperContext.Customer.SingleOrDefault(Customer => Customer.CustomerId == id);
+            var customer = _bootStrapperContext.Customers.SingleOrDefault(Customer => Customer.CustomerId == id);
             if (customer == null)
                 throw new Exception("Error getting Customer record.");
             return customer;
