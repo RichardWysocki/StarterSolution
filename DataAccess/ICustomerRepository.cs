@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataAccess.Models;
 
 namespace DataAccess
 {
@@ -9,6 +10,7 @@ namespace DataAccess
             Customer GetCustomerByCustomerID(int Id);
 
             Customer CreateCustomer(Customer customer);
+
             bool UpdateCustomer(Customer customer);
 
             void DeleteCustomer(int id);

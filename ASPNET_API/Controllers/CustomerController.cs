@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using ASPNET_API.Models;
 using AutoMapper;
 using DataAccess;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_API.Controllers
@@ -12,11 +14,13 @@ namespace ASPNET_API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerLocationRepository _customerLocationRepository;
 
-        public CustomerController(IMapper mapper, ICustomerRepository customerRepository)
+        public CustomerController(IMapper mapper, ICustomerRepository customerRepository, ICustomerLocationRepository customerLocationRepository)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
+            _customerLocationRepository = customerLocationRepository;
         }
         // GET: api/Cusotmer
         [HttpGet]
@@ -38,10 +42,15 @@ namespace ASPNET_API.Controllers
             {
                 //_logEngine.LogInfo($"KidApiController: /api/KidApi/Get/{id}", "Starting Method");
                 var getData = _customerRepository.GetCustomerByCustomerID(id);
+
+                var locationCustomerData =
+                    _customerLocationRepository.GetCustomerLocationsCustomerLocationByCustomerId(id);
                 //var response = new KidDTO() { KidId = getData.KidId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
                 //_logEngine.LogInfo($"KidApiController: /api/KidApi/Get/{id}", "Returning Method");
                 var response = _mapper.Map<CustomerDTO>(getData);
-                return Ok(getData);
+                response.Location = _mapper.Map<List<LocationDTO>>(locationCustomerData);
+
+                return Ok(response);
             }
             catch (Exception e) when (e.Message == "Error getting Customer record.")
             {

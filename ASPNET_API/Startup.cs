@@ -28,13 +28,24 @@ namespace ASPNET_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.Scan(scan =>
                 scan.FromCallingAssembly()
-                    .FromApplicationDependencies(a => a.FullName.StartsWith("DataAccess"))
+                    .FromApplicationDependencies(a => a.FullName.StartsWith("DataAccess") && !a.FullName.Contains("CustomerLocationRepository"))
                     .AddClasses()
                     .AsMatchingInterface()
                     .WithScopedLifetime()
             );
+
+            // services.AddScoped<ICustomerLocationRepository>(provider =>
+            //     new CustomerLocationRepository(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Decorate<IConnection>(provider =>
+                new Connection { DataConnection = Configuration.GetConnectionString("DefaultConnection") });
+
+            //services.Decorate<ICustomerLocationRepository>(provider =>
+            //    new CustomerLocationRepository(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));
             //services.AddTransient<ICustomerRepository, CustomerRepository>();
