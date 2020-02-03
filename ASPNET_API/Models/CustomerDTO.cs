@@ -2,7 +2,7 @@
 
 namespace ASPNET_API.Models
 {
-    public class CustomerDTO
+    public class CustomerDto
     {
         public int CustomerId { get; set; }
 
@@ -12,15 +12,6 @@ namespace ASPNET_API.Models
 
         public string State { get; set; }
 
-        public List<LocationDTO> Location { get; set; }
-    }
-
-    public class LocationDTO
-    {
-        public int CustomerLocationId { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Zip { get; set; }
+        public List<LocationDto> Location { get; set; }
     }
 }

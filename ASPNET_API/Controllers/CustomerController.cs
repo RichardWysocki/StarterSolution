@@ -47,8 +47,8 @@ namespace ASPNET_API.Controllers
                     _customerLocationRepository.GetCustomerLocationsCustomerLocationByCustomerId(id);
                 //var response = new KidDTO() { KidId = getData.KidId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
                 //_logEngine.LogInfo($"KidApiController: /api/KidApi/Get/{id}", "Returning Method");
-                var response = _mapper.Map<CustomerDTO>(getData);
-                response.Location = _mapper.Map<List<LocationDTO>>(locationCustomerData);
+                var response = _mapper.Map<CustomerDto>(getData);
+                response.Location = _mapper.Map<List<LocationDto>>(locationCustomerData);
 
                 return Ok(response);
             }

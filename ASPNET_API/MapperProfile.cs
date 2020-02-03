@@ -9,8 +9,8 @@ namespace ASPNET_API
     {
         public MapperProfile()
         {
-            CreateMap<Customer, CustomerDTO>();
-            CreateMap<CustomerLocation, LocationDTO>();
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerLocation, LocationDto>();
         }
     }
 }
